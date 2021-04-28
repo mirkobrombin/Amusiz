@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="amusiz">
+	<schema id="pm.mirko.Amusiz" path="/pm/mirko/Amusiz/">
+	</schema>
+</schemalist>

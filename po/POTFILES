@@ -1,0 +1,7 @@
+data/pm.mirko.Amusiz.desktop.in
+data/pm.mirko.Amusiz.appdata.xml.in
+data/pm.mirko.Amusiz.gschema.xml
+src/window.ui
+src/main.py
+src/window.py
+
