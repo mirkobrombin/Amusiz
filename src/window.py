@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from gi.repository import Gtk, Handy, WebKit2
+from gi.repository import Gtk, Gdk, Handy, WebKit2
 from pathlib import Path
 
 @Gtk.Template(resource_path='/pm/mirko/Amusiz/window.ui')
@@ -53,6 +53,7 @@ class AmusizWindow(Handy.ApplicationWindow):
         '''Webview'''
         self.webview.load_uri(self.amazon_uri)
         self.webview.get_style_context().add_class("webview")
+        self.webview.set_background_color(Gdk.RGBA(0.05,0.05,0.05,1.0))
 
         '''Settings'''
         self.settings.set_hardware_acceleration_policy(self.st_hw_accell)
