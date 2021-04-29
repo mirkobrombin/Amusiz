@@ -10,7 +10,7 @@
     <img  src="https://raw.githubusercontent.com/mirkobrombin/Amusiz/main/data/screenshot.png">
 </div>
 
-### Installation
+## Installation
 
 ### Build dependencies
 - meson
