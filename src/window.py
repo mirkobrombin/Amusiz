@@ -49,6 +49,7 @@ class AmusizWindow(Handy.ApplicationWindow):
 
         '''Webview'''
         self.webview.load_uri(self.amazon_uri)
+        self.webview.get_style_context().add_class("webview")
 
         '''Settings & Cookies'''
         self.cookies.set_persistent_storage(

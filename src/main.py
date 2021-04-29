@@ -22,7 +22,7 @@ gi.require_version('Gtk', '3.0')
 gi.require_version('Handy', '1')
 gi.require_version('WebKit2', '4.0')
 
-from gi.repository import Gtk, Gio, Handy
+from gi.repository import Gtk, Gdk, Gio, Handy
 
 from .window import AmusizWindow
 
@@ -33,6 +33,15 @@ class Application(Gtk.Application):
                          flags=Gio.ApplicationFlags.FLAGS_NONE)
 
     def do_activate(self):
+        '''Load custom CSS'''
+        data_bytes = Gio.resources_lookup_data(
+            "/pm/mirko/Amusiz/style.css", 0)
+        provider = Gtk.CssProvider()
+        provider.load_from_data(data_bytes.get_data())
+        Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(),
+                                                 provider,
+                                                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
         win = self.props.active_window
         if not win:
             win = AmusizWindow(application=self)

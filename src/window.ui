@@ -72,6 +72,9 @@
             <child>
               <placeholder/>
             </child>
+            <style>
+              <class name="scroll_window"/>
+            </style>
           </object>
           <packing>
             <property name="expand">True</property>
