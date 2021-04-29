@@ -32,6 +32,7 @@
                     <property name="can-focus">True</property>
                     <property name="tooltip-text" translatable="yes">Search on Amazon Music ..</property>
                     <property name="hexpand">True</property>
+                    <property name="xalign">0.5</property>
                     <property name="primary-icon-name">edit-find-symbolic</property>
                     <property name="primary-icon-activatable">False</property>
                     <property name="primary-icon-sensitive">False</property>
