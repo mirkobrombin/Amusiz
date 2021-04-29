@@ -56,6 +56,15 @@ class AmusizWindow(Handy.ApplicationWindow):
             WebKit2.CookiePersistentStorage.TEXT
         )
 
+        '''CSS tricks'''
+        style = WebKit2.UserStyleSheet(
+            "#navbarSearchInput,#navbarSearchInputButton {display:none !important;}",
+            WebKit2.UserContentInjectedFrames.TOP_FRAME,
+            WebKit2.UserStyleLevel.USER,
+            None, None
+        )
+        self.manager.add_style_sheet(style)
+
         self.scroll_window.add(self.webview)
         self.show_all()
 
