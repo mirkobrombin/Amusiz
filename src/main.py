@@ -17,6 +17,7 @@
 
 import sys
 import gi
+import webbrowser
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('Handy', '1')
@@ -32,6 +33,10 @@ class Application(Gtk.Application):
         super().__init__(application_id='pm.mirko.Amusiz',
                          flags=Gio.ApplicationFlags.FLAGS_NONE)
 
+    def do_startup(self):
+        Gtk.Application.do_startup(self)
+        self.set_actions()
+
     def do_activate(self):
         '''Load custom CSS'''
         data_bytes = Gio.resources_lookup_data(
@@ -45,7 +50,38 @@ class Application(Gtk.Application):
         win = self.props.active_window
         if not win:
             win = AmusizWindow(application=self)
+
+        self.win = win
         win.present()
+
+
+    def quit(self, action=None, param=None):
+        '''Quit application [CTRL+Q]'''
+        self.win.destroy()
+
+    @staticmethod
+    def help(action, param):
+        '''Open Help URL [F1]'''
+        webbrowser.open_new_tab("https://github.com/mirkobrombin/Amusiz")
+
+    def refresh(self, action, param):
+        '''Refresh [CTRL+R]'''
+        self.win.on_refresh()
+
+    def set_actions(self):
+        '''Register window actions'''
+        action_entries = [
+            ("quit", self.quit, ("app.quit", ["<Ctrl>Q"])),
+            ("help", self.help, ("app.help", ["F1"])),
+            ("refresh", self.refresh, ("app.refresh", ["<Ctrl>R"]))
+        ]
+
+        for action, callback, accel in action_entries:
+            simple_action = Gio.SimpleAction.new(action, None)
+            simple_action.connect('activate', callback)
+            self.add_action(simple_action)
+            if accel is not None:
+                self.set_accels_for_action(*accel)
 
 
 def main(version):

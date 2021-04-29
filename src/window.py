@@ -69,9 +69,12 @@ class AmusizWindow(Handy.ApplicationWindow):
         self.scroll_window.add(self.webview)
         self.show_all()
 
-    def on_refresh(self, widget):
+    def on_refresh(self, widget=None):
         self.webview.reload()
 
     def on_search(self, widget):
         terms = widget.get_text()
         self.webview.load_uri(f"{self.amazon_uri}/search/{terms}")
+
+    def on_play_pause(self):
+        print("TODO")
