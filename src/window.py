@@ -56,6 +56,7 @@ class AmusizWindow(Handy.ApplicationWindow):
 
         '''Settings'''
         self.settings.set_hardware_acceleration_policy(self.st_hw_accell)
+        # self.settings.set_enable_smooth_scrolling(True)
         self.webview.set_settings(self.settings)
 
         '''Cookies'''
@@ -65,8 +66,20 @@ class AmusizWindow(Handy.ApplicationWindow):
         )
 
         '''CSS tricks'''
-        style = WebKit2.UserStyleSheet(
-            "#navbarSearchInput,#navbarSearchInputButton {display:none !important;}",
+        style = WebKit2.UserStyleSheet("""
+            #navbarSearchInput,#navbarSearchInputButton {
+                display:none !important;
+            }
+            #navbar {
+                height: 64px !important;
+            }
+            #navbar, #contextMenuOverlay > div {
+                background-color: #000 !important;
+            }
+            #contextMenuOverlay > div {
+                padding: 5px 0 !important;
+            }
+            """,
             WebKit2.UserContentInjectedFrames.TOP_FRAME,
             WebKit2.UserStyleLevel.USER,
             None, None
@@ -82,6 +95,3 @@ class AmusizWindow(Handy.ApplicationWindow):
     def on_search(self, widget):
         terms = widget.get_text()
         self.webview.load_uri(f"{self.amazon_uri}/search/{terms}")
-
-    def on_play_pause(self):
-        print("TODO")
