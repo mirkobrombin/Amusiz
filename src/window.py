@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from gi.repository import Gtk, Gdk, Handy, WebKit2
+from gi.repository import Gtk, Gdk, Gio, Handy, WebKit2
 from pathlib import Path
 
 @Gtk.Template(resource_path='/pm/mirko/Amusiz/window.ui')
@@ -49,6 +49,7 @@ class AmusizWindow(Handy.ApplicationWindow):
         '''Signals'''
         self.btn_refresh.connect('pressed', self.on_refresh)
         self.entry_search.connect('activate', self.on_search)
+        self.webview.connect('load-changed', self.on_change)
 
         '''Webview'''
         self.webview.load_uri(self.amazon_uri)
@@ -92,7 +93,13 @@ class AmusizWindow(Handy.ApplicationWindow):
 
     def on_refresh(self, widget=None):
         self.webview.reload()
+        # self.webview.get_inspector()
 
     def on_search(self, widget):
         terms = widget.get_text()
         self.webview.load_uri(f"{self.amazon_uri}/search/{terms}")
+
+    def on_change(self, web_view, load_event):
+        scripts = Gio.resources_lookup_data("/pm/mirko/Amusiz/scripts.js", 0)
+        self.webview.run_javascript(str(scripts.get_data(), "utf-8"))
+
