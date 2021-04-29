@@ -32,9 +32,12 @@ class AmusizWindow(Handy.ApplicationWindow):
     default_settings = Gtk.Settings.get_default()
     context = WebKit2.WebContext.get_default()
     manager = WebKit2.UserContentManager()
+    settings = WebKit2.Settings()
     webview = WebKit2.WebView.new_with_user_content_manager(manager)
     cookies = context.get_cookie_manager()
     cookies.set_accept_policy(WebKit2.CookieAcceptPolicy.ALWAYS)
+
+    st_hw_accell = WebKit2.HardwareAccelerationPolicy.NEVER
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -51,7 +54,11 @@ class AmusizWindow(Handy.ApplicationWindow):
         self.webview.load_uri(self.amazon_uri)
         self.webview.get_style_context().add_class("webview")
 
-        '''Settings & Cookies'''
+        '''Settings'''
+        self.settings.set_hardware_acceleration_policy(self.st_hw_accell)
+        self.webview.set_settings(self.settings)
+
+        '''Cookies'''
         self.cookies.set_persistent_storage(
             self.cookies_path,
             WebKit2.CookiePersistentStorage.TEXT
