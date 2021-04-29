@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from gi.repository import Gtk, Handy, WebKit2
+from pathlib import Path
 
 @Gtk.Template(resource_path='/pm/mirko/Amusiz/window.ui')
 class AmusizWindow(Handy.ApplicationWindow):
@@ -24,12 +25,21 @@ class AmusizWindow(Handy.ApplicationWindow):
     btn_refresh = Gtk.Template.Child()
     entry_search = Gtk.Template.Child()
     scroll_window = Gtk.Template.Child()
-    default_settings = Gtk.Settings.get_default()
+
     amazon_uri = "https://music.amazon.it"
+    cookies_path = f"{Path.home()}/.cache/cookies.txt"
+
+    default_settings = Gtk.Settings.get_default()
+    context = WebKit2.WebContext.get_default()
+    manager = WebKit2.UserContentManager()
+    webview = WebKit2.WebView.new_with_user_content_manager(manager)
+    cookies = context.get_cookie_manager()
+    cookies.set_accept_policy(WebKit2.CookieAcceptPolicy.ALWAYS)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        '''Prefer dark theme'''
         self.default_settings.set_property(
             "gtk-application-prefer-dark-theme", True)
 
@@ -38,16 +48,11 @@ class AmusizWindow(Handy.ApplicationWindow):
         self.entry_search.connect('activate', self.on_search)
 
         '''Webview'''
-        context = WebKit2.WebContext.get_default()
-        manager = WebKit2.UserContentManager()
-        self.webview = WebKit2.WebView.new_with_user_content_manager(manager)
         self.webview.load_uri(self.amazon_uri)
 
         '''Settings & Cookies'''
-        cookies = context.get_cookie_manager()
-        cookies.set_accept_policy(WebKit2.CookieAcceptPolicy.ALWAYS)
-        cookies.set_persistent_storage(
-            '/tmp/cookies.txt',
+        self.cookies.set_persistent_storage(
+            self.cookies_path,
             WebKit2.CookiePersistentStorage.TEXT
         )
 

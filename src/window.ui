@@ -30,6 +30,7 @@
                   <object class="GtkSearchEntry" id="entry_search">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
+                    <property name="tooltip-text" translatable="yes">Search on Amazon Music ..</property>
                     <property name="hexpand">True</property>
                     <property name="primary-icon-name">edit-find-symbolic</property>
                     <property name="primary-icon-activatable">False</property>
@@ -44,7 +45,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
-                <property name="tooltip-text" translatable="yes">New bottle</property>
+                <property name="tooltip-text" translatable="yes">Refresh</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
