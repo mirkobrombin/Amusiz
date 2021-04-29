@@ -41,6 +41,11 @@ if compile_schemas.found()
 endif
 
 install_data(
-    'pm.mirko.Amusiz.png',
+    'pm.mirko.Amusiz.svg',
+    install_dir: join_paths(get_option('prefix'), get_option('datadir'), 'icons/hicolor/scalable/apps')
+)
+
+install_data(
+    'pm.mirko.Amusiz-symbolic.svg',
     install_dir: join_paths(get_option('prefix'), get_option('datadir'), 'icons/hicolor/scalable/apps')
 )

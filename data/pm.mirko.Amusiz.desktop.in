@@ -1,7 +1,8 @@
 [Desktop Entry]
 Name=amusiz
 Exec=amusiz
+Icon=pm.mirko.Amusiz.svg
 Terminal=false
 Type=Application
-Categories=GTK;
+Categories=GTK;Music;Sound;
 StartupNotify=true
