@@ -24,14 +24,14 @@ import gettext
 
 if "APPDIR" in os.environ:
 	APPDIR = os.environ["APPDIR"]
-	VERSION = "3.1.5"
+	VERSION = "0.1.0"
 	pkgdatadir = "/usr/local/share/amusiz"
 	localedir = "/usr/local/share/locale"
 	gresource_path = f"{APPDIR}/{pkgdatadir}/amusiz.gresource"
 	sys.path.insert(1, f"{APPDIR}/{pkgdatadir}")
 elif "SNAP" in os.environ:
 	SNAP = os.environ["SNAP"]
-	VERSION = "3.1.5"
+	VERSION = "0.1.0"
 	pkgdatadir = "usr/share/amusiz"
 	localedir = "usr/share/locale"
 	gresource_path = f"{SNAP}/{pkgdatadir}/amusiz.gresource"
