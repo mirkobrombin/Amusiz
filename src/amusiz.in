@@ -22,11 +22,27 @@ import sys
 import signal
 import gettext
 
-VERSION = '@VERSION@'
-pkgdatadir = '@pkgdatadir@'
-localedir = '@localedir@'
+if "APPDIR" in os.environ:
+	APPDIR = os.environ["APPDIR"]
+	VERSION = "3.1.5"
+	pkgdatadir = "/usr/local/share/amusiz"
+	localedir = "/usr/local/share/locale"
+	gresource_path = f"{APPDIR}/{pkgdatadir}/amusiz.gresource"
+	sys.path.insert(1, f"{APPDIR}/{pkgdatadir}")
+elif "SNAP" in os.environ:
+	SNAP = os.environ["SNAP"]
+	VERSION = "3.1.5"
+	pkgdatadir = "usr/share/amusiz"
+	localedir = "usr/share/locale"
+	gresource_path = f"{SNAP}/{pkgdatadir}/amusiz.gresource"
+	sys.path.insert(1, f"{SNAP}/{pkgdatadir}")
+else:
+	VERSION = "@VERSION@"
+	pkgdatadir = "@pkgdatadir@"
+	localedir = "@localedir@"
+	gresource_path = f"{pkgdatadir}/amusiz.gresource"
+	sys.path.insert(1, pkgdatadir)
 
-sys.path.insert(1, pkgdatadir)
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 gettext.install('amusiz', localedir)
 
