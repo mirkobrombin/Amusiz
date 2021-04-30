@@ -14,7 +14,7 @@ architectures:
 
 parts:
 
-  bottles:
+  amusiz:
     plugin: meson
     meson-parameters: [ --prefix=/usr ]
     source: https://github.com/mirkobrombin/Amusiz.git
@@ -38,10 +38,10 @@ parts:
       - libnotify-dev
       - libgtk-3-dev
     organize:
-      snap/bottles/current/usr: usr
+      snap/amusiz/current/usr: usr
 
 apps:
-  bottles:
+  amusiz:
     command: usr/bin/amusiz
     desktop: usr/share/applications/pm.mirko.Amusiz.desktop
     extensions: [gnome-3-38]
@@ -54,10 +54,10 @@ apps:
       - network
       - audio-playback
     slots:
-      - dbus-bottles
+      - dbus-amusiz
 
 slots:
-  dbus-bottles:
+  dbus-amusiz:
     interface: dbus
     bus: session
     name: pm.mirko.Amusiz
