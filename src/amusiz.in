@@ -50,7 +50,7 @@ if __name__ == '__main__':
     import gi
 
     from gi.repository import Gio
-    resource = Gio.Resource.load(os.path.join(pkgdatadir, 'amusiz.gresource'))
+    resource = Gio.Resource.load(gresource_path)
     resource._register()
 
     from amusiz import main
