@@ -55,6 +55,12 @@ parts:
     organize:
       snap/amusiz/current/usr: usr
 
+plugs:
+  dot-cache-cookies:
+    interface: personal-files
+    write:
+    - $HOME/.cache/cookies.txt
+
 apps:
   amusiz:
     command: usr/bin/amusiz
@@ -73,6 +79,7 @@ apps:
       - network-status
       - audio-playback
       - dbus
+      - dot-cache-cookies
     slots:
       - dbus-amusiz
 
