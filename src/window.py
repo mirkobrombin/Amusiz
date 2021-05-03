@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
 from gi.repository import Gtk, Gdk, Gio, Handy, WebKit2
 from pathlib import Path
 
@@ -41,6 +42,9 @@ class AmusizWindow(Handy.ApplicationWindow):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+        if "SNAP" in os.environ:
+            self.cookies_path = f"{os.environ['SNAP_USER_DATA']}/cookies.txt"
 
         '''Prefer dark theme'''
         self.default_settings.set_property(
@@ -102,4 +106,5 @@ class AmusizWindow(Handy.ApplicationWindow):
     def on_change(self, web_view, load_event):
         scripts = Gio.resources_lookup_data("/pm/mirko/Amusiz/scripts.js", 0)
         self.webview.run_javascript(str(scripts.get_data(), "utf-8"))
+
 
