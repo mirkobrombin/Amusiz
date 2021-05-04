@@ -49,3 +49,20 @@ function fixVolumeBar() {
     volBar.setAttribute('step', '0.05')
 }
 setInterval(() => fixVolumeBar(), 300)
+
+
+/*var ready = function () {
+
+  document.getElementById("accountSetting").click();
+
+	if (document.body && document.querySelector("#contextMenuOverlay[aria-label='menu']")) {
+    setTimeout(() => {
+        user = document.querySelector("#contextMenuOverlay[aria-label='menu'] > div > music-context-menu-header").getAttribute("primary-text");
+        alert(user)
+    }, 300)
+		return;
+	}
+	window.requestAnimationFrame(ready);
+};
+
+window.requestAnimationFrame(ready);*/

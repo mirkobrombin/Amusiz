@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import webbrowser
 from gi.repository import Gtk, Gdk, Gio, Handy, WebKit2
 from pathlib import Path
 
@@ -72,20 +73,9 @@ class AmusizWindow(Handy.ApplicationWindow):
         )
 
         '''CSS tricks'''
-        style = WebKit2.UserStyleSheet("""
-            #navbarSearchInput,#navbarSearchInputButton {
-                display:none !important;
-            }
-            #navbar {
-                height: 64px !important;
-            }
-            #navbar, #contextMenuOverlay > div {
-                background-color: #000 !important;
-            }
-            #contextMenuOverlay > div {
-                padding: 5px 0 !important;
-            }
-            """,
+        style = Gio.resources_lookup_data("/pm/mirko/Amusiz/inject.css", 0)
+        style = WebKit2.UserStyleSheet(
+            str(style.get_data(), "utf-8"),
             WebKit2.UserContentInjectedFrames.TOP_FRAME,
             WebKit2.UserStyleLevel.USER,
             None, None
@@ -94,6 +84,16 @@ class AmusizWindow(Handy.ApplicationWindow):
 
         self.scroll_window.add(self.webview)
         self.show_all()
+
+    def hit_element(self, widget=None, element="body"):
+        script = f"document.querySelector('{element}').click();"
+        self.webview.run_javascript(script)
+
+    def open_url_browser(self, widget=None, url=amazon_uri):
+        webbrowser.open(url)
+
+    def open_url(self, widget=None, url=amazon_uri):
+        self.webview.load_uri(url)
 
     def on_refresh(self, widget=None):
         self.webview.reload()

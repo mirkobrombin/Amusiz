@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/pm/mirko/Amusiz">
+    <file>inject.css</file>
     <file>scripts.js</file>
     <file>style.css</file>
     <file>window.ui</file>
