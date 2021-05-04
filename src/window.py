@@ -38,7 +38,6 @@ class AmusizWindow(Handy.ApplicationWindow):
     webview = WebKit2.WebView.new_with_user_content_manager(manager)
     cookies = context.get_cookie_manager()
     cookies.set_accept_policy(WebKit2.CookieAcceptPolicy.ALWAYS)
-
     st_hw_accell = WebKit2.HardwareAccelerationPolicy.NEVER
 
     def __init__(self, **kwargs):
@@ -85,6 +84,8 @@ class AmusizWindow(Handy.ApplicationWindow):
         self.scroll_window.add(self.webview)
         self.show_all()
 
+
+    '''Webview methods'''
     def hit_element(self, widget=None, element="body"):
         script = f"document.querySelector('{element}').click();"
         self.webview.run_javascript(script)
@@ -106,5 +107,4 @@ class AmusizWindow(Handy.ApplicationWindow):
     def on_change(self, web_view, load_event):
         scripts = Gio.resources_lookup_data("/pm/mirko/Amusiz/scripts.js", 0)
         self.webview.run_javascript(str(scripts.get_data(), "utf-8"))
-
 
