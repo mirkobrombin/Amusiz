@@ -29,6 +29,8 @@ amusiz_sources = [
   '__init__.py',
   'main.py',
   'window.py',
+  'webview.py',
+  'globals.py',
 ]
 
 install_data(amusiz_sources, install_dir: moduledir)

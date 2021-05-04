@@ -19,6 +19,8 @@ import os
 import webbrowser
 from gi.repository import Gtk, Gdk, Gio, Handy, WebKit2
 from pathlib import Path
+from . import webview
+
 
 @Gtk.Template(resource_path='/pm/mirko/Amusiz/window.ui')
 class AmusizWindow(Handy.ApplicationWindow):
@@ -28,83 +30,23 @@ class AmusizWindow(Handy.ApplicationWindow):
     entry_search = Gtk.Template.Child()
     scroll_window = Gtk.Template.Child()
 
-    amazon_uri = "https://music.amazon.it"
-    cookies_path = f"{Path.home()}/.cache/cookies.txt"
-
     default_settings = Gtk.Settings.get_default()
-    context = WebKit2.WebContext.get_default()
-    manager = WebKit2.UserContentManager()
-    settings = WebKit2.Settings()
-    webview = WebKit2.WebView.new_with_user_content_manager(manager)
-    cookies = context.get_cookie_manager()
-    cookies.set_accept_policy(WebKit2.CookieAcceptPolicy.ALWAYS)
-    st_hw_accell = WebKit2.HardwareAccelerationPolicy.NEVER
+
+    webview = webview.AmusizWebView()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        if "SNAP" in os.environ:
-            self.cookies_path = f"{os.environ['SNAP_USER_DATA']}/cookies.txt"
-
         '''Prefer dark theme'''
         self.default_settings.set_property(
-            "gtk-application-prefer-dark-theme", True)
+            "gtk-application-prefer-dark-theme",
+            True
+        )
 
         '''Signals'''
-        self.btn_refresh.connect('pressed', self.on_refresh)
-        self.entry_search.connect('activate', self.on_search)
-        self.webview.connect('load-changed', self.on_change)
+        self.btn_refresh.connect('pressed', self.webview.on_refresh)
+        self.entry_search.connect('activate', self.webview.on_search)
 
-        '''Webview'''
-        self.webview.load_uri(self.amazon_uri)
-        self.webview.get_style_context().add_class("webview")
-        self.webview.set_background_color(Gdk.RGBA(0.05,0.05,0.05,1.0))
-
-        '''Settings'''
-        self.settings.set_hardware_acceleration_policy(self.st_hw_accell)
-        # self.settings.set_enable_smooth_scrolling(True)
-        self.webview.set_settings(self.settings)
-
-        '''Cookies'''
-        self.cookies.set_persistent_storage(
-            self.cookies_path,
-            WebKit2.CookiePersistentStorage.TEXT
-        )
-
-        '''CSS tricks'''
-        style = Gio.resources_lookup_data("/pm/mirko/Amusiz/inject.css", 0)
-        style = WebKit2.UserStyleSheet(
-            str(style.get_data(), "utf-8"),
-            WebKit2.UserContentInjectedFrames.TOP_FRAME,
-            WebKit2.UserStyleLevel.USER,
-            None, None
-        )
-        self.manager.add_style_sheet(style)
-
-        self.scroll_window.add(self.webview)
+        '''Show widgets'''
+        self.scroll_window.add(self.webview.webview)
         self.show_all()
-
-
-    '''Webview methods'''
-    def hit_element(self, widget=None, element="body"):
-        script = f"document.querySelector('{element}').click();"
-        self.webview.run_javascript(script)
-
-    def open_url_browser(self, widget=None, url=amazon_uri):
-        webbrowser.open(url)
-
-    def open_url(self, widget=None, url=amazon_uri):
-        self.webview.load_uri(url)
-
-    def on_refresh(self, widget=None):
-        self.webview.reload()
-        # self.webview.get_inspector()
-
-    def on_search(self, widget):
-        terms = widget.get_text()
-        self.webview.load_uri(f"{self.amazon_uri}/search/{terms}")
-
-    def on_change(self, web_view, load_event):
-        scripts = Gio.resources_lookup_data("/pm/mirko/Amusiz/scripts.js", 0)
-        self.webview.run_javascript(str(scripts.get_data(), "utf-8"))
-
