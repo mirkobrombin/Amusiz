@@ -1,0 +1,19 @@
+#navbarSearchInput,
+#navbarSearchInputButton {
+    display:none !important;
+}
+#navbar, #contextMenuOverlay > div {
+    background-color: #000 !important;
+}
+#contextMenuOverlay > div {
+    padding: 5px 0 !important;
+}
+
+nav#navbar {
+    position: relative !important;
+}
+
+#verticalSubnav+div,
+#navbar+div:not(#verticalSubnav) {
+    padding-top: 0 !important;
+}
