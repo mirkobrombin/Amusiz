@@ -32,7 +32,7 @@ class AmusizWebSettings(WebKit2.Settings):
         self.set_enable_dns_prefetching(True)
         self.set_enable_media_capabilities(True)
         # self.set_enable_smooth_scrolling(True)
-        # self.set_enable_developer_extras(True)
+        self.set_enable_developer_extras(True)
 
 
 class AmusizContentManager(WebKit2.UserContentManager):
@@ -57,14 +57,17 @@ class AmusizWebView():
     context = WebKit2.WebContext.get_default()
     manager = AmusizContentManager()
     settings = AmusizWebSettings()
-    webview = WebKit2.WebView.new_with_user_content_manager(manager)
+    policies = WebKit2.WebsitePolicies(autoplay=WebKit2.AutoplayPolicy.ALLOW)
+    webview = WebKit2.WebView(
+        settings=settings,
+        user_content_manager=manager,
+        website_policies=policies
+    )
     cookies = context.get_cookie_manager()
     cookies.set_accept_policy(WebKit2.CookieAcceptPolicy.ALWAYS)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-        self.webview.set_settings(self.settings)
 
         '''Signals'''
         self.webview.connect('load-changed', self.on_change)
