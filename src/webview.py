@@ -32,7 +32,7 @@ class AmusizWebSettings(WebKit2.Settings):
         self.set_enable_dns_prefetching(True)
         self.set_enable_media_capabilities(True)
         # self.set_enable_smooth_scrolling(True)
-        self.set_enable_developer_extras(True)
+        # self.set_enable_developer_extras(True)
 
 
 class AmusizContentManager(WebKit2.UserContentManager):
