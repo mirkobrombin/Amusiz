@@ -2,8 +2,9 @@
 <gresources>
   <gresource prefix="/pm/mirko/Amusiz">
     <file>inject.css</file>
-    <file>scripts.js</file>
     <file>style.css</file>
+    <file>scripts.js</file>
     <file>window.ui</file>
+    <file>about.ui</file>
   </gresource>
 </gresources>

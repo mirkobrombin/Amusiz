@@ -1,4 +1,4 @@
-# window.py
+# webview.py
 #
 # Copyright 2021 Mirko Brombin
 #
@@ -104,3 +104,4 @@ class AmusizWebView():
     def on_change(self, web_view, load_event):
         scripts = Gio.resources_lookup_data("/pm/mirko/Amusiz/scripts.js", 0)
         self.webview.run_javascript(str(scripts.get_data(), "utf-8"))
+
