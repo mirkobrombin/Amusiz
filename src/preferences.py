@@ -16,8 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from gi.repository import Gtk, GLib, Handy
-
-langs = ["US", "IT", "FR", "DE"]
+from .globals import amazon_uris
 
 @Gtk.Template(resource_path='/pm/mirko/Amusiz/preferences.ui')
 class AmusizPreferences(Handy.PreferencesWindow):
@@ -36,9 +35,12 @@ class AmusizPreferences(Handy.PreferencesWindow):
         self.default_settings = window.default_settings
 
         '''Set widgets status from user settings'''
-        # self.combo_lang.set_active(self.settings.get_boolean("lang"))
+        self.combo_lang.set_active_id(self.settings.get_string("lang"))
 
         '''Signal connections'''
-        # self.combo_lang.connect('state-set', self.toggle_dark)
+        self.combo_lang.connect('changed', self.change_language)
 
-
+    def change_language(self, widget):
+        res = widget.get_active_id()
+        self.settings.set_string("lang", res)
+        

@@ -17,7 +17,7 @@
 
 import webbrowser
 from gi.repository import Gtk, Gdk, Gio, Handy, WebKit2
-from .globals import amazon_uri, cookies_path
+from .globals import amazon_uris, cookies_path
 
 
 class AmusizWebSettings(WebKit2.Settings):
@@ -66,14 +66,16 @@ class AmusizWebView():
     cookies = context.get_cookie_manager()
     cookies.set_accept_policy(WebKit2.CookieAcceptPolicy.ALWAYS)
 
-    def __init__(self, **kwargs):
+    def __init__(self, window, **kwargs):
         super().__init__(**kwargs)
+
+        self.window = window
+        self.start()
 
         '''Signals'''
         self.webview.connect('load-changed', self.on_change)
 
         '''Webview'''
-        self.webview.load_uri(amazon_uri)
         self.webview.set_background_color(Gdk.RGBA(0.05, 0.05, 0.05, 1.0))
 
         '''Cookies'''
@@ -84,14 +86,19 @@ class AmusizWebView():
 
     '''Webview methods'''
 
+    def start(self, settings=False, key=None, user_data=None):
+        lang = self.window.settings.get_string("lang")
+        self.amazon_uri = amazon_uris[lang]
+        self.webview.load_uri(self.amazon_uri)
+
     def hit_element(self, widget=None, element="body"):
         script = f"document.querySelector('{element}').click();"
         self.webview.run_javascript(script)
 
-    def open_browser(self, widget=None, url=amazon_uri):
+    def open_browser(self, widget=None, url="about:blank"):
         webbrowser.open(url)
 
-    def open_url(self, widget=None, url=amazon_uri):
+    def open_url(self, widget=None, url="about:blank"):
         self.webview.load_uri(url)
 
     def on_refresh(self, widget=None):
@@ -99,7 +106,7 @@ class AmusizWebView():
 
     def on_search(self, widget):
         terms = widget.get_text()
-        self.webview.load_uri(f"{amazon_uri}/search/{terms}")
+        self.webview.load_uri(f"{self.amazon_uri}/search/{terms}")
 
     def on_change(self, web_view, load_event):
         scripts = Gio.resources_lookup_data("/pm/mirko/Amusiz/scripts.js", 0)

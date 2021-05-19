@@ -1,7 +1,13 @@
 import os
 from pathlib import Path
 
-amazon_uri = "https://music.amazon.it"
+amazon_uris = {
+    "US": "https://music.amazon.com",
+    "IT": "https://music.amazon.it",
+    "FR": "https://music.amazon.fr",
+    "DE": "https://music.amazon.de"
+}
+
 cookies_path = f"{Path.home()}/.cache/cookies.txt"
 
 if "SNAP" in os.environ:

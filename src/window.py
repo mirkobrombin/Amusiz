@@ -38,10 +38,10 @@ class AmusizWindow(Handy.ApplicationWindow):
     default_settings = Gtk.Settings.get_default()
     settings = Gio.Settings.new("pm.mirko.Amusiz")
 
-    webview = webview.AmusizWebView()
-
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+        self.webview = webview.AmusizWebView(self)
 
         '''Prefer dark theme'''
         self.default_settings.set_property(
@@ -55,6 +55,7 @@ class AmusizWindow(Handy.ApplicationWindow):
         self.btn_about.connect('pressed', self.show_about)
         self.btn_help.connect('pressed', self.show_help)
         self.entry_search.connect('activate', self.webview.on_search)
+        self.settings.connect('changed', self.webview.start, "lang")
 
         '''Show widgets'''
         self.scroll_window.add(self.webview.webview)
@@ -64,9 +65,8 @@ class AmusizWindow(Handy.ApplicationWindow):
         p = preferences.AmusizPreferences(self)
         p.present()
 
-    @staticmethod
-    def show_about(widget):
-        about.AmusizAboutDialog().show_all()
+    def show_about(self, widget):
+        about.AmusizAboutDialog(self).show_all()
 
     @staticmethod
     def show_help(widget):

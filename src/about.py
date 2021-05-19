@@ -21,6 +21,7 @@ from gi.repository import Gtk
 class AmusizAboutDialog(Gtk.AboutDialog):
     __gtype_name__ = 'AmusizAboutDialog'
 
-    def __init__(self, **kwargs):
+    def __init__(self, window, **kwargs):
         super().__init__(**kwargs)
+        self.set_transient_for(window)
 
