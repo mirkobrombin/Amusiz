@@ -1,0 +1,37 @@
+name: Build unstable packages
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+jobs:
+  build-packages:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        
+      # Dependencies
+      # --------------------------------------
+      - name: Install build dependencies
+        run: |
+          sudo apt install -y debhelper python3 python3.8-minimal python3-pip python3-setuptools gettext build-essential patchelf librsvg2-dev desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace ninja-build meson
+      
+      # Deb Build
+      # --------------------------------------
+      - name: Build .deb package
+        run: dpkg-buildpackage
+
+      # Rename and release packages
+      # --------------------------------------
+      - name: Rename packages
+        run: |
+          mv ../pm.mirko.amusiz*.deb pm.mirko.amusiz-unstable.deb
+        
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          draft: false
+          prerelease: false
+          automatic_release_tag: unstable
+          title: Unstable build
+          files: |
+            pm.mirko.amusiz-unstable.deb
