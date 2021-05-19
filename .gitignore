@@ -34,5 +34,22 @@ packagecache
 
 *.pyc
 /*venv*
+# Ignore generated files
+*.deb
+*.dsc
+*.changes
+*.snap
+*.build
+*.buildinfo
+*.tar.gz
 
 .buildconfig
+/prime
+/builddir
+/data/*.back
+
+# Ignore files generated during build
+*debian/files
+*debian/.*
+*debian/com.usebottles.bottles*
+*obj-x86_64-linux-gnu
