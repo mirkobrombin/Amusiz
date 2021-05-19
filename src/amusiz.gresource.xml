@@ -4,7 +4,8 @@
     <file>inject.css</file>
     <file>style.css</file>
     <file>scripts.js</file>
-    <file>window.ui</file>
     <file>about.ui</file>
+    <file>window.ui</file>
+    <file>preferences.ui</file>
   </gresource>
 </gresources>

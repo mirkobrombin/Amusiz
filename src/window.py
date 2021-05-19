@@ -21,6 +21,7 @@ from gi.repository import Gtk, Gdk, Gio, Handy, WebKit2
 from pathlib import Path
 from . import webview
 from . import about
+from . import preferences
 
 
 @Gtk.Template(resource_path='/pm/mirko/Amusiz/window.ui')
@@ -30,10 +31,12 @@ class AmusizWindow(Handy.ApplicationWindow):
     btn_refresh = Gtk.Template.Child()
     entry_search = Gtk.Template.Child()
     scroll_window = Gtk.Template.Child()
+    btn_preferences = Gtk.Template.Child()
     btn_about = Gtk.Template.Child()
     btn_help = Gtk.Template.Child()
 
     default_settings = Gtk.Settings.get_default()
+    settings = Gio.Settings.new("pm.mirko.Amusiz")
 
     webview = webview.AmusizWebView()
 
@@ -48,6 +51,7 @@ class AmusizWindow(Handy.ApplicationWindow):
 
         '''Signals'''
         self.btn_refresh.connect('pressed', self.webview.on_refresh)
+        self.btn_preferences.connect('pressed', self.show_preferences)
         self.btn_about.connect('pressed', self.show_about)
         self.btn_help.connect('pressed', self.show_help)
         self.entry_search.connect('activate', self.webview.on_search)
@@ -55,6 +59,10 @@ class AmusizWindow(Handy.ApplicationWindow):
         '''Show widgets'''
         self.scroll_window.add(self.webview.webview)
         self.show_all()
+
+    def show_preferences(self, widget):
+        p = preferences.AmusizPreferences(self)
+        p.present()
 
     @staticmethod
     def show_about(widget):

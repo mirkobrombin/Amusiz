@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="amusiz">
 	<schema id="pm.mirko.Amusiz" path="/pm/mirko/Amusiz/">
+    <key type="s" name="lang">
+    <default>'US'</default>
+    <summary>Amazon Language</summary>
+    <description>Set the language for the Amazon Music Website.</description>
+    </key>
 	</schema>
 </schemalist>

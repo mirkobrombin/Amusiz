@@ -27,11 +27,12 @@ configure_file(
 
 amusiz_sources = [
   '__init__.py',
+  'about.py',
   'main.py',
   'window.py',
   'webview.py',
   'globals.py',
-  'about.py',
+  'preferences.py',
 ]
 
 install_data(amusiz_sources, install_dir: moduledir)
