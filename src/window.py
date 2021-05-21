@@ -54,7 +54,9 @@ class AmusizWindow(Handy.ApplicationWindow):
         self.btn_preferences.connect('pressed', self.show_preferences)
         self.btn_about.connect('pressed', self.show_about)
         self.btn_help.connect('pressed', self.show_help)
-        self.entry_search.connect('activate', self.webview.on_search)
+        self.entry_search.connect('key-release-event', self.webview.on_search)
+        self.entry_search.connect('focus-in-event', self.webview.hit_element, "#navbarSearchInput")
+        self.entry_search.connect('icon-release', self.webview.clear_search)
         self.settings.connect('changed', self.webview.start, "lang")
 
         '''Show widgets'''

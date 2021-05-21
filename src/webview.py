@@ -32,7 +32,7 @@ class AmusizWebSettings(WebKit2.Settings):
         self.set_enable_dns_prefetching(True)
         self.set_enable_media_capabilities(True)
         # self.set_enable_smooth_scrolling(True)
-        # self.set_enable_developer_extras(True)
+        self.set_enable_developer_extras(True)
 
 
 class AmusizContentManager(WebKit2.UserContentManager):
@@ -91,7 +91,7 @@ class AmusizWebView():
         self.amazon_uri = amazon_uris[lang]
         self.webview.load_uri(self.amazon_uri)
 
-    def hit_element(self, widget=None, element="body"):
+    def hit_element(self, widget=None, user_data=None, element="body"):
         script = f"document.querySelector('{element}').click();"
         self.webview.run_javascript(script)
 
@@ -104,9 +104,21 @@ class AmusizWebView():
     def on_refresh(self, widget=None):
         self.webview.reload()
 
-    def on_search(self, widget):
+    def clear_search(self, widget, icon_pos, event, user_data=None):
+        self.on_search(widget, Gdk.KEY_Escape)
+
+    def on_search(self, widget=None, event=None, data=None):
+        if event == Gdk.KEY_Escape or event.keyval == Gdk.KEY_Escape:
+                widget.set_text("")
+
         terms = widget.get_text()
-        self.webview.load_uri(f"{self.amazon_uri}/search/{terms}")
+        script = f"""
+        document.getElementById("navbarSearchInput").value ="{terms}";
+        var event = document.createEvent('Event');
+        event.initEvent('input', true, true);
+        document.getElementById("navbarSearchInput").dispatchEvent(event);
+        """
+        self.webview.run_javascript(script)
 
     def on_change(self, web_view, load_event):
         scripts = Gio.resources_lookup_data("/pm/mirko/Amusiz/scripts.js", 0)
