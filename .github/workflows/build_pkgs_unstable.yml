@@ -56,3 +56,4 @@ jobs:
           files: |
             Amusiz-*-x86_64.AppImage*
             pm.mirko.amusiz-unstable.deb
+
