@@ -67,11 +67,13 @@
     </child>
   </object>
   <template class="AmusizWindow" parent="HdyApplicationWindow">
+    <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Amusiz</property>
     <property name="window-position">center</property>
     <property name="default-width">990</property>
     <property name="default-height">800</property>
+    <property name="icon-name">pm.mirko.Amusiz</property>
     <property name="gravity">center</property>
     <child>
       <object class="GtkBox">
@@ -83,6 +85,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="show-close-button">True</property>
+            <property name="centering-policy">strict</property>
             <child type="title">
               <object class="HdyClamp">
                 <property name="visible">True</property>
@@ -140,6 +143,9 @@
                 <property name="position">1</property>
               </packing>
             </child>
+            <style>
+              <class name="titlebar"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -151,7 +157,6 @@
           <object class="GtkScrolledWindow" id="scroll_window">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="shadow-type">in</property>
             <property name="propagate-natural-width">True</property>
             <property name="propagate-natural-height">True</property>
             <child>
