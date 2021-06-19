@@ -32,21 +32,21 @@ script:
   - cp data/pm.mirko.Amusiz.svg AppDir/usr/share/icons/hicolor/scalable/apps/
   - cp data/pm.mirko.Amusiz-symbolic.svg AppDir/usr/share/icons/hicolor/scalable/apps/
   # Copying Desktop file
-  - cp build/data/pm.mirko.amusiz.desktop AppDir/usr/share/applications/
+  - cp build/data/pm.mirko.Amusiz.desktop AppDir/usr/share/applications/
   # Copying and compiling gschema
-  - cp data/pm.mirko.amusiz.gschema.xml AppDir/usr/share/glib-2.0/schemas/pm.mirko.amusiz.gschema.xml
+  - cp data/pm.mirko.Amusiz.gschema.xml AppDir/usr/share/glib-2.0/schemas/pm.mirko.Amusiz.gschema.xml
   - glib-compile-schemas AppDir/usr/share/glib-2.0/schemas/
   # Copying appdata
-  - cp -a data/pm.mirko.amusiz.appdata.xml.in AppDir/usr/share/metainfo/pm.mirko.amusiz.appdata.xml
+  - cp -a data/pm.mirko.Amusiz.appdata.xml.in AppDir/usr/share/metainfo/pm.mirko.Amusiz.appdata.xml
 
 
 AppDir:
   path: ./AppDir
 
   app_info:
-    id: pm.mirko.amusiz
+    id: pm.mirko.Amusiz
     name: Amusiz
-    icon: pm.mirko.amusiz
+    icon: pm.mirko.Amusiz
     version: 1.2.1
     # Set the python executable as entry point
     exec: usr/bin/python3.9
