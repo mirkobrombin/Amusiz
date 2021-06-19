@@ -28,8 +28,8 @@ script:
   - msgfmt -o AppDir/usr/share/locale/$lang/LC_MESSAGES/amusiz.mo po/$lang.po
   - done
   # Copying icons
-  - cp -a data/icons AppDir/usr/share
-  - mv AppDir/usr/share/icons/symbolic/scalable/apps/*.svg AppDir/usr/share/icons/hicolor/scalable/apps/
+  - cp data/pm.mirko.Amusiz.svg AppDir/usr/share/icons/hicolor/scalable/apps/
+  - cp data/pm.mirko.Amusiz-symbolic.svg AppDir/usr/share/icons/hicolor/scalable/apps/
   # Copying Desktop file
   - cp build/data/pm.mirko.amusiz.desktop AppDir/usr/share/applications/
   # Copying and compiling gschema
