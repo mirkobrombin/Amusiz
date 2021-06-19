@@ -14,7 +14,7 @@ script:
   # Preparing directories
   - mkdir -p AppDir/usr AppDir/usr/local/share/amusiz AppDir/usr/bin AppDir/usr/share/glib-2.0/schemas AppDir/usr/share/applications AppDir/usr/share/metainfo AppDir/usr/share/icons
   # Compiling and installing glib-resources
-  - glib-compile-resources --sourcedir=src/ui/ src/ui/amusiz.gresource.xml --target=AppDir/usr/local/share/amusiz/amusiz.gresource
+  - glib-compile-resources --sourcedir=src/ src/amusiz.gresource.xml --target=AppDir/usr/local/share/amusiz/amusiz.gresource
   # Copying Amusiz binary
   - cp build/src/amusiz AppDir/usr/bin/
   # Copying Amusiz python package and remove not useful files"
