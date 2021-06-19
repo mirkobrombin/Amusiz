@@ -84,7 +84,6 @@ AppDir:
     - gstreamer1.0-libav
     - gstreamer1.0-alsa
     - gstreamer1.0-pulseaudio
-organize:
 
     exclude:
     - adwaita-icon-theme
