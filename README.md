@@ -12,6 +12,9 @@
 
 ## Installation
 
+### AppImage
+[Here](https://github.com/mirkobrombin/Amusiz/releases) you can find the latest AppImage build.
+
 ### Snap
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/amusiz)
 
