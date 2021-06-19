@@ -47,7 +47,7 @@ AppDir:
     id: pm.mirko.Amusiz
     name: Amusiz
     icon: pm.mirko.Amusiz
-    version: 1.2.1
+    version: 1.2.2
     # Set the python executable as entry point
     exec: usr/bin/python3.9
     # Set the application main script path as argument. Use '$@' to forward CLI parameters
