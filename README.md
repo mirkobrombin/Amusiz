@@ -24,6 +24,10 @@
 - libhandy
 - WebKit2
 
+### Know issues
+**Amusiz ask me to re-login each time**  
+Choose the correct language from the preferences.
+
 ### Build
 ```bash
 meson build
