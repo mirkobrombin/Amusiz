@@ -1,7 +1,6 @@
-pm.mirko.amusiz (1.2.2) precise; urgency=low
+pm.mirko.amusiz (1.3.0) precise; urgency=low
 
-  * Make headerbar draggable
-  * Fix window corners
-  * Fix preferences view
+  * Support Amazon Music Spanish
+  * Preferencies entry for Amazon Advanced search
 
- -- Mirko Brombin <send@mirko.pm>  Wed, 19 May 2021 14:27:00 +0000
+ -- Mirko Brombin <send@mirko.pm>  Wed, 21 Jun 2021 12:12:00 +0000
