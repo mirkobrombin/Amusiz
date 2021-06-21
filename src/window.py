@@ -59,6 +59,8 @@ class AmusizWindow(Handy.ApplicationWindow):
         self.entry_search.connect('focus-in-event', self.webview.hit_element, "#navbarSearchInput")
         self.entry_search.connect('icon-release', self.webview.clear_search)
         self.settings.connect('changed', self.webview.start, "lang")
+        if self.settings.get_boolean("search"):
+            self.entry_search.connect('activate', self.webview.perform_adv_search)
 
         '''Show widgets'''
         self.scroll_window.add(self.webview.webview)

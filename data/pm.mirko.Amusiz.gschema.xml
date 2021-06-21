@@ -6,5 +6,10 @@
     <summary>Amazon Language</summary>
     <description>Set the language for the Amazon Music Website.</description>
     </key>
+    <key type="b" name="search">
+    <default>false</default>
+    <summary>Amazon advanced search</summary>
+    <description>Toggle the Amazon Music complete search.</description>
+    </key>
 	</schema>
 </schemalist>

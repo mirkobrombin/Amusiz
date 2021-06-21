@@ -107,6 +107,11 @@ class AmusizWebView():
     def clear_search(self, widget, icon_pos, event, user_data=None):
         self.on_search(widget, Gdk.KEY_Escape)
 
+    def perform_adv_search(self, widget=None, data=None):
+        terms = widget.get_text()
+        url = f"{self.amazon_uri}/search/{terms}"
+        self.webview.load_uri(url)
+
     def on_search(self, widget=None, event=None, data=None):
         if event == Gdk.KEY_Escape or event.keyval == Gdk.KEY_Escape:
                 widget.set_text("")

@@ -24,6 +24,7 @@ class AmusizPreferences(Handy.PreferencesWindow):
 
     '''Get widgets from template'''
     combo_lang = Gtk.Template.Child()
+    switch_advanced_search = Gtk.Template.Child()
 
     def __init__(self, window, **kwargs):
         super().__init__(**kwargs)
@@ -36,11 +37,21 @@ class AmusizPreferences(Handy.PreferencesWindow):
 
         '''Set widgets status from user settings'''
         self.combo_lang.set_active_id(self.settings.get_string("lang"))
+        self.switch_advanced_search.set_active(self.settings.get_boolean("search"))
 
         '''Signal connections'''
         self.combo_lang.connect('changed', self.change_language)
+        self.switch_advanced_search.connect('state-set', self.toggle_advanced_search)
 
     def change_language(self, widget):
         res = widget.get_active_id()
         self.settings.set_string("lang", res)
+
+    def toggle_advanced_search(self, widget, state):
+        self.settings.set_boolean("search", state)
+        if state:
+            self.window.entry_search.connect(
+                'activate',
+                self.window.webview.perform_adv_search
+            )
         
