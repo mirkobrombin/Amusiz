@@ -7,8 +7,8 @@
 <br/>
 
 <div align="center">
-  <a href="https://www.codefactor.io/repository/github/mirkobrombin/amusiz/overview/master">
-    <img src="https://www.codefactor.io/repository/github/mirkobrombin/amusiz/badge/master" />
+  <a href="https://www.codefactor.io/repository/github/mirkobrombin/amusiz">
+    <img src="https://www.codefactor.io/repository/github/mirkobrombin/amusiz/badge" alt="CodeFactor" />
   </a>
   <a href="https://github.com/mirkobrombin/Amusiz/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-GPL--3.0-blue.svg">
@@ -28,6 +28,7 @@
 </div>
 
 ## ↗️ Install
+You can install Amusiz in multiple ways, choose your favorite.
 
 ### 🚀 AppImage
 [Here](https://github.com/mirkobrombin/Amusiz/releases) you can find the latest AppImage build.
