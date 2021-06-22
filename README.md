@@ -7,8 +7,8 @@
 <br/>
 
 <div align="center">
-  <a href="https://www.codefactor.io/repository/github/bottlesdevs/bottles/overview/master">
-    <img src="https://www.codefactor.io/repository/github/bottlesdevs/bottles/badge/master" />
+  <a href="https://www.codefactor.io/repository/github/mirkobrombin/amusiz/overview/master">
+    <img src="https://www.codefactor.io/repository/github/mirkobrombin/amusiz/badge/master" />
   </a>
   <a href="https://github.com/mirkobrombin/Amusiz/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-GPL--3.0-blue.svg">
