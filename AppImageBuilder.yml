@@ -1,64 +1,19 @@
+# appimage-builder recipe see https://appimage-builder.readthedocs.io for details
 version: 1
-script:
-  # Remove any previous build
-  - rm -rf AppDir | true
-  - rm -rf build  | true
-  # Building with meson and ninja
-  - mkdir build
-  - meson build --prefix=/usr/bin/
-  - cd build
-  - ninja
-  - ninja amusiz-pot
-  - ninja amusiz-update-po
-  - cd ..
-  # Preparing directories
-  - mkdir -p AppDir/usr AppDir/usr/local/share/amusiz AppDir/usr/bin AppDir/usr/share/glib-2.0/schemas AppDir/usr/share/applications AppDir/usr/share/metainfo AppDir/usr/share/icons
-  # Compiling and installing glib-resources
-  - glib-compile-resources --sourcedir=src/ src/amusiz.gresource.xml --target=AppDir/usr/local/share/amusiz/amusiz.gresource
-  # Copying Amusiz binary
-  - cp build/src/amusiz AppDir/usr/bin/
-  # Copying Amusiz python package and remove not useful files"
-  - cp -a src AppDir/usr/local/share/amusiz/amusiz
-  - rm AppDir/usr/local/share/amusiz/amusiz/amusiz.in
-  - rm AppDir/usr/local/share/amusiz/amusiz/meson.build
-  # Compiling and installing translations
-  - cat po/LINGUAS | while read lang
-  - do
-  - mkdir -p AppDir/usr/share/locale/$lang/LC_MESSAGES
-  - msgfmt -o AppDir/usr/share/locale/$lang/LC_MESSAGES/amusiz.mo po/$lang.po
-  - done
-  # Copying icons
-  - mkdir -p AppDir/usr/share/icons/hicolor/scalable/apps/
-  - cp data/pm.mirko.Amusiz.svg AppDir/usr/share/icons/hicolor/scalable/apps/
-  - cp data/pm.mirko.Amusiz-symbolic.svg AppDir/usr/share/icons/hicolor/scalable/apps/
-  # Copying Desktop file
-  - cp build/data/pm.mirko.Amusiz.desktop AppDir/usr/share/applications/
-  # Copying and compiling gschema
-  - cp data/pm.mirko.Amusiz.gschema.xml AppDir/usr/share/glib-2.0/schemas/pm.mirko.Amusiz.gschema.xml
-  - glib-compile-schemas AppDir/usr/share/glib-2.0/schemas/
-  # Copying appdata
-  - cp -a data/pm.mirko.Amusiz.appdata.xml.in AppDir/usr/share/metainfo/pm.mirko.Amusiz.appdata.xml
-
-
 AppDir:
-  path: ./AppDir
-
+  path: /home/mirko/Projects/Amusiz/AppDir
   app_info:
     id: pm.mirko.Amusiz
     name: Amusiz
     icon: pm.mirko.Amusiz
     version: 1.2.2
-    # Set the python executable as entry point
     exec: usr/bin/amusiz
-    # Set the application main script path as argument. Use '$@' to forward CLI parameters
     exec_args: $@
-
   apt:
     arch: amd64
     sources:
       - sourceline: 'deb http://archive.ubuntu.com/ubuntu/ hirsute main restricted universe multiverse'
         key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C'
-
     include:
     - dconf-gsettings-backend
     - libbz2-1.0
@@ -86,61 +41,39 @@ AppDir:
     - gstreamer1.0-libav
     - gstreamer1.0-alsa
     - gstreamer1.0-pulseaudio
-
     exclude:
     - adwaita-icon-theme
     - humanity-icon-theme
-
-  after_runtime: |
-     rm -f $APPDIR/.bundle.yml
-     rm -rf $APPDIR/usr/share/doc
-     rm -rf $APPDIR/usr/share/man
-
   files:
-    include: []
-
+    include:
+    - /usr/lib/x86_64-linux-gnu/webkit2gtk-4.0
     exclude:
-      - AppDir/usr/lib/x86_64-linux-gnu/gconv
-      - AppDir/usr/share/man
-      - AppDir/usr/share/doc/*/README.*
-      - AppDir/usr/share/doc/*/changelog.*
-      - AppDir/usr/share/doc/*/NEWS.*
-      - AppDir/usr/share/doc/*/TODO.*
-
-  runtime:
-    env:
-      LD_LIBRARY_PATH: '$(APPDIR)/usr/lib/x86_64-linux-gnu/webkit2gtk-4.0:$(LD_LIBRARY_PATH)'
-      # Set python home
-      PYTHONPATH: '${APPDIR}/usr/lib/python3/dist-packages'
-      # SSL CERTIFICATE_VERIFY_FAILED python3.8 -m pip install --ignore-installed --prefix=/usr --root=$APPDIR install --upgrade certifi
-      #SSL_CERT_DIR: "/etc/ssl/certs:/etc/pki/ca-trust/extracted/pem:/etc/pki/ca-trust/extracted/openssl:/etc/ssl:/etc/pki/tls:/etc/pki:/etc/pki/ca-trust:/usr/local/share/certs:/usr/share/pki/ca-trust-source:/etc/openssl/certs:/var/ssl/certs"
-      SSL_CERT_FILE: "$APPDIR/usr/lib/python3/dist-packages/certifi/cacert.pem"
-      # if you want to use Adwaita just uncomment bellow
-      # GTK_THEME: Adwaita
-
+    - usr/share/man
+    - usr/share/doc/*/README.*
+    - usr/share/doc/*/changelog.*
+    - usr/share/doc/*/NEWS.*
+    - usr/share/doc/*/TODO.*
   test:
-    fedora:
+    fedora-30:
       image: appimagecrafters/tests-env:fedora-30
       command: ./AppRun
       use_host_x: true
-    debian:
+    debian-stable:
       image: appimagecrafters/tests-env:debian-stable
       command: ./AppRun
       use_host_x: true
-    arch:
+    archlinux-latest:
       image: appimagecrafters/tests-env:archlinux-latest
       command: ./AppRun
       use_host_x: true
-    centos:
+    centos-7:
       image: appimagecrafters/tests-env:centos-7
       command: ./AppRun
       use_host_x: true
-    ubuntu:
+    ubuntu-xenial:
       image: appimagecrafters/tests-env:ubuntu-xenial
       command: ./AppRun
       use_host_x: true
-
 AppImage:
-  update-information: 'gh-releases-zsync|AppImage-*x86_64.AppImage.zsync'
-  sign-key: None
   arch: x86_64
+  update-information: guess
