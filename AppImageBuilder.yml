@@ -1,5 +1,45 @@
 # appimage-builder recipe see https://appimage-builder.readthedocs.io for details
 version: 1
+script:
+  # Remove any previous build
+  - rm -rf AppDir | true
+  - rm -rf build  | true
+  # Building with meson and ninja
+  - mkdir build
+  - meson build --prefix=/usr/bin/
+  - cd build
+  - ninja
+  - ninja amusiz-pot
+  - ninja amusiz-update-po
+  - cd ..
+  # Preparing directories
+  - mkdir -p AppDir/usr AppDir/usr/local/share/amusiz AppDir/usr/bin AppDir/usr/share/glib-2.0/schemas AppDir/usr/share/applications AppDir/usr/share/metainfo AppDir/usr/share/icons
+  # Compiling and installing glib-resources
+  - glib-compile-resources --sourcedir=src/ src/amusiz.gresource.xml --target=AppDir/usr/local/share/amusiz/amusiz.gresource
+  # Copying Amusiz binary
+  - cp build/src/amusiz AppDir/usr/bin/
+  # Copying Amusiz python package and remove not useful files"
+  - cp -a src AppDir/usr/local/share/amusiz/amusiz
+  - rm AppDir/usr/local/share/amusiz/amusiz/amusiz.in
+  - rm AppDir/usr/local/share/amusiz/amusiz/meson.build
+  # Compiling and installing translations
+  - cat po/LINGUAS | while read lang
+  - do
+  - mkdir -p AppDir/usr/share/locale/$lang/LC_MESSAGES
+  - msgfmt -o AppDir/usr/share/locale/$lang/LC_MESSAGES/amusiz.mo po/$lang.po
+  - done
+  # Copying icons
+  - mkdir -p AppDir/usr/share/icons/hicolor/scalable/apps/
+  - cp data/pm.mirko.Amusiz.svg AppDir/usr/share/icons/hicolor/scalable/apps/
+  - cp data/pm.mirko.Amusiz-symbolic.svg AppDir/usr/share/icons/hicolor/scalable/apps/
+  # Copying Desktop file
+  - cp build/data/pm.mirko.Amusiz.desktop AppDir/usr/share/applications/
+  # Copying and compiling gschema
+  - cp data/pm.mirko.Amusiz.gschema.xml AppDir/usr/share/glib-2.0/schemas/pm.mirko.Amusiz.gschema.xml
+  - glib-compile-schemas AppDir/usr/share/glib-2.0/schemas/
+  # Copying appdata
+  - cp -a data/pm.mirko.Amusiz.appdata.xml.in AppDir/usr/share/metainfo/pm.mirko.Amusiz.appdata.xml
+
 AppDir:
   path: ./AppDir
   app_info:
