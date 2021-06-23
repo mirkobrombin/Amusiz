@@ -1,14 +1,14 @@
 # appimage-builder recipe see https://appimage-builder.readthedocs.io for details
 version: 1
 AppDir:
-  path: /home/mirko/Projects/Amusiz/AppDir
+  path: ./AppDir
   app_info:
     id: pm.mirko.Amusiz
     name: Amusiz
     icon: pm.mirko.Amusiz
     version: 1.2.2
-    exec: usr/bin/amusiz
-    exec_args: $@
+    exec: usr/bin/python3.9
+    exec_args: "$APPDIR/usr/bin/amusiz $@"
   apt:
     arch: amd64
     sources:
