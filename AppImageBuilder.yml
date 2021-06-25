@@ -51,7 +51,7 @@ AppDir:
     icon: pm.mirko.Amusiz
     version: 1.2.2
     # Set the python executable as entry point
-    exec: "$APPDIR/usr/bin/amusiz"
+    exec: /usr/bin/amusiz
     # Set the application main script path as argument. Use '$@' to forward CLI parameters
     exec_args: "$@"
 
