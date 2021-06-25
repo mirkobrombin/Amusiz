@@ -3,6 +3,8 @@ script:
   # Remove any previous build
   - rm -rf AppDir | true
   - rm -rf build  | true
+  # Fix python interpreter
+  - sed -i -e 's|@PYTHON@|/usr/bin/python3|g' src/amusiz.in
   # Building with meson and ninja
   - mkdir build
   - meson build --prefix=/usr/bin/
@@ -49,7 +51,7 @@ AppDir:
     icon: pm.mirko.Amusiz
     version: 1.2.2
     # Set the python executable as entry point
-    exec: usr/bin/python3.9
+    exec: usr/bin/python3
     # Set the application main script path as argument. Use '$@' to forward CLI parameters
     exec_args: "$APPDIR/usr/bin/amusiz $@"
 
@@ -112,6 +114,7 @@ AppDir:
     env:
       LD_LIBRARY_PATH: '$(APPDIR)/usr/lib/x86_64-linux-gnu/webkit2gtk-4.0:$(LD_LIBRARY_PATH)'
       # Set python home
+      PYTHONHOME: '${APPDIR}/usr'
       PYTHONPATH: '${APPDIR}/usr/lib/python3/dist-packages'
       # SSL CERTIFICATE_VERIFY_FAILED python3.8 -m pip install --ignore-installed --prefix=/usr --root=$APPDIR install --upgrade certifi
       #SSL_CERT_DIR: "/etc/ssl/certs:/etc/pki/ca-trust/extracted/pem:/etc/pki/ca-trust/extracted/openssl:/etc/ssl:/etc/pki/tls:/etc/pki:/etc/pki/ca-trust:/usr/local/share/certs:/usr/share/pki/ca-trust-source:/etc/openssl/certs:/var/ssl/certs"
