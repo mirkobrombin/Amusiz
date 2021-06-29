@@ -1,0 +1,66 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the amusiz package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: amusiz\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-23 20:26+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/pm.mirko.Amusiz.desktop.in:3
+msgid "amusiz"
+msgstr ""
+
+#: data/pm.mirko.Amusiz.gschema.xml:6
+msgid "Amazon Language"
+msgstr ""
+
+#: data/pm.mirko.Amusiz.gschema.xml:7
+msgid "Set the language for the Amazon Music Website."
+msgstr ""
+
+#: data/pm.mirko.Amusiz.gschema.xml:11
+msgid "Amazon advanced search"
+msgstr ""
+
+#: data/pm.mirko.Amusiz.gschema.xml:12
+msgid "Toggle the Amazon Music complete search."
+msgstr ""
+
+#: src/window.ui:21
+msgid "Preferences"
+msgstr ""
+
+#: src/window.ui:45
+msgid "Help"
+msgstr ""
+
+#: src/window.ui:58
+msgid "About Amusiz"
+msgstr ""
+
+#: src/window.ui:72
+msgid "Amusiz"
+msgstr ""
+
+#: src/window.ui:99 src/window.ui:105
+msgid "Search on Amazon Music .."
+msgstr ""
+
+#: src/window.ui:115
+msgid "Refresh"
+msgstr ""
+
+#: src/window.ui:131
+msgid "Open menu"
+msgstr ""

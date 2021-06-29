@@ -7,5 +7,6 @@
     <file>about.ui</file>
     <file>window.ui</file>
     <file>preferences.ui</file>
+    <file>disclaimer.ui</file>
   </gresource>
 </gresources>

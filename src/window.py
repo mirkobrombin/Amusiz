@@ -62,6 +62,11 @@ class AmusizWindow(Handy.ApplicationWindow):
         if self.settings.get_boolean("search"):
             self.entry_search.connect('activate', self.webview.perform_adv_search)
 
+        '''Disclaimer'''
+        if self.settings.get_boolean("disclaimer"):
+            disclaimer_window = AmusizDisclaimer(self)
+            disclaimer_window.present()
+
         '''Show widgets'''
         self.scroll_window.add(self.webview.webview)
         self.show_all()
@@ -76,3 +81,18 @@ class AmusizWindow(Handy.ApplicationWindow):
     @staticmethod
     def show_help(widget):
         webbrowser.open("https://github.com/mirkobrombin/Amusiz")
+
+@Gtk.Template(resource_path='/pm/mirko/Amusiz/disclaimer.ui')
+class AmusizDisclaimer(Handy.Window):
+    __gtype_name__ = 'AmusizDisclaimer'
+
+    def __init__(self, window, **kwargs):
+        super().__init__(**kwargs)
+        self.set_transient_for(window)
+        self.window = window
+
+        '''Signals'''
+        self.connect('delete-event', self.close)
+
+    def close(self, widget, data):
+        self.window.settings.set_boolean("disclaimer", False)

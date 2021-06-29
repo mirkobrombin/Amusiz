@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="amusiz">
 	<schema id="pm.mirko.Amusiz" path="/pm/mirko/Amusiz/">
+    <key type="b" name="disclaimer">
+      <default>true</default>
+      <summary>Disclaimer</summary>
+      <description>Toggle the disclaimer.</description>
+    </key>
     <key type="s" name="lang">
-    <default>'US'</default>
-    <summary>Amazon Language</summary>
-    <description>Set the language for the Amazon Music Website.</description>
+      <default>'US'</default>
+      <summary>Amazon Language</summary>
+      <description>Set the language for the Amazon Music Website.</description>
     </key>
     <key type="b" name="search">
-    <default>false</default>
-    <summary>Amazon advanced search</summary>
-    <description>Toggle the Amazon Music complete search.</description>
+      <default>false</default>
+      <summary>Amazon advanced search</summary>
+      <description>Toggle the Amazon Music complete search.</description>
     </key>
 	</schema>
 </schemalist>
