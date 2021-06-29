@@ -44,7 +44,7 @@ jobs:
         run: |
           mv Amusiz-*-x86_64.AppImage Amusiz-devel-x86_64.AppImage
           mv Amusiz-*-x86_64.AppImage.zsync Amusiz-devel-x86_64.AppImage.zsync
-      	  mv ../pm.mirko.amusiz*.deb pm.mirko.amusiz-unstable.deb
+          mv ../pm.mirko.amusiz*.deb pm.mirko.amusiz-unstable.deb
         
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -55,5 +55,5 @@ jobs:
           title: Unstable build
           files: |
             Amusiz-*-x86_64.AppImage*
-      	    pm.mirko.amusiz-unstable.deb
+            pm.mirko.amusiz-unstable.deb
 
