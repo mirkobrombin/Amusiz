@@ -1,5 +1,6 @@
 [Desktop Entry]
-Name=amusiz
+Name=Amusiz
+Description=GTK Client for Amazon Music (Web)
 Exec=amusiz
 Icon=pm.mirko.Amusiz
 Terminal=false
