@@ -3,9 +3,9 @@
 	<id>pm.mirko.Amusiz.desktop</id>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>GPL-3.0-or-later</project_license>
-    <name>Amusiz</name>
-    <summary>GTK Client for Amazon Music (Web)</summary>
-    <developer_name>Mirko Brombin</developer_name>
+  <name>Amusiz</name>
+  <summary>GTK Client for Amazon Music (Web)</summary>
+  <developer_name>Mirko Brombin</developer_name>
 	<description>
 	  A GTK Wrapper for Amazon Music website.
     All the features offered by the web version are present, nothing
