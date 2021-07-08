@@ -43,6 +43,13 @@ There is the official package of Amusiz on AUR for ArchLinux and derivatives.
 ### Snap
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/amusiz)
 
+### Flatpak build
+```bash
+flatpak-builder --repo=amusiz --force-clean --user build-dir pm.mirko.Amusiz.yml
+flatpak remote-add --user amusiz amusiz --no-gpg-verify
+flatpak install --user amusiz pm.mirko.Amusiz
+```
+
 ### Build dependencies
 - meson
 - ninja
