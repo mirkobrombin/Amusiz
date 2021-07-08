@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import webbrowser
+import urllib.parse
 from gi.repository import Gtk, Gdk, Gio, Handy, WebKit2
 from .globals import amazon_uris, cookies_path
 
@@ -52,9 +53,19 @@ class AmusizContentManager(WebKit2.UserContentManager):
         )
 
 
+class AmusizWebContext(WebKit2.WebContext):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def trust_certificate(self, webview, certificate, host):
+        self.allow_tls_certificate_for_host(certificate, host)
+        webview.on_refresh()
+
+
 class AmusizWebView():
 
-    context = WebKit2.WebContext.get_default()
+    context = AmusizWebContext()
     manager = AmusizContentManager()
     settings = AmusizWebSettings()
     policies = WebKit2.WebsitePolicies(autoplay=WebKit2.AutoplayPolicy.ALLOW)
@@ -74,6 +85,7 @@ class AmusizWebView():
 
         '''Signals'''
         self.webview.connect('load-changed', self.on_change)
+        self.webview.connect('load-failed-with-tls-errors', self.on_tls_errors)
 
         '''Webview'''
         self.webview.set_background_color(Gdk.RGBA(0.05, 0.05, 0.05, 1.0))
@@ -100,6 +112,11 @@ class AmusizWebView():
 
     def open_url(self, widget=None, url="about:blank"):
         self.webview.load_uri(url)
+
+    def on_tls_errors(self, widget, failing_uri, certificate, errors):
+        host = urllib.parse.urlparse(failing_uri).netloc
+        ctx = self.webview.get_context()
+        ctx.allow_tls_certificate_for_host(certificate, host)
 
     def on_refresh(self, widget=None):
         self.webview.reload()
@@ -128,4 +145,5 @@ class AmusizWebView():
     def on_change(self, web_view, load_event):
         scripts = Gio.resources_lookup_data("/pm/mirko/Amusiz/scripts.js", 0)
         self.webview.run_javascript(str(scripts.get_data(), "utf-8"))
+
 
