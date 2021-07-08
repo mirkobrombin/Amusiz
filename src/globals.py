@@ -9,7 +9,10 @@ amazon_uris = {
     "ES": "https://music.amazon.es"
 }
 
-cookies_path = f"{Path.home()}/.cache/cookies.txt"
+cookies_path = f"{Path.home()}/.cache/cookies.sqlite"
+
+if "IS_FLATPAK" in os.environ:
+    cookies_path = f"{Path.home()}/.var/app/{os.environ['FLATPAK_ID']}/data/cookies.sqlite"
 
 if "SNAP" in os.environ:
-    cookies_path = f"{os.environ['SNAP_USER_DATA']}/cookies.txt"
+    cookies_path = f"{os.environ['SNAP_USER_DATA']}/cookies.sqlite"

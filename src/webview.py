@@ -53,19 +53,9 @@ class AmusizContentManager(WebKit2.UserContentManager):
         )
 
 
-class AmusizWebContext(WebKit2.WebContext):
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-    def trust_certificate(self, webview, certificate, host):
-        self.allow_tls_certificate_for_host(certificate, host)
-        webview.on_refresh()
-
-
 class AmusizWebView():
 
-    context = AmusizWebContext()
+    context = WebKit2.WebContext.get_default()
     manager = AmusizContentManager()
     settings = AmusizWebSettings()
     policies = WebKit2.WebsitePolicies(autoplay=WebKit2.AutoplayPolicy.ALLOW)
@@ -93,7 +83,7 @@ class AmusizWebView():
         '''Cookies'''
         self.cookies.set_persistent_storage(
             cookies_path,
-            WebKit2.CookiePersistentStorage.TEXT
+            WebKit2.CookiePersistentStorage.SQLITE
         )
 
     '''Webview methods'''
