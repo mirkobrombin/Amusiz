@@ -1,10 +1,10 @@
 {
-    "id" : "pm.mirko.Amusiz",
-    "sdk" : "org.gnome.Sdk",
-    "runtime" : "org.gnome.Platform",
-    "runtime-version" : "40",
-    "command" : "amusiz",
-    "finish-args" : [
+    "id": "pm.mirko.Amusiz",
+    "sdk": "org.gnome.Sdk",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "40",
+    "command": "amusiz",
+    "finish-args": [
         "--allow=multiarch",
         "--share=network",
         "--share=ipc",
@@ -14,15 +14,15 @@
     	"--system-talk-name=org.freedesktop.GeoClue2",
         "--env=IS_FLATPAK=1"
     ],
-    "modules" : [
+    "modules": [
         {
-            "name" : "amusiz",
-            "builddir" : true,
-            "buildsystem" : "meson",
-            "sources" : [
+            "name": "amusiz",
+            "builddir": true,
+            "buildsystem": "meson",
+            "sources": [
                 {
-                    "type" : "file",
-                    "path" : "."
+                    "type": "file",
+                    "url": "."
                 }
             ]
         }
