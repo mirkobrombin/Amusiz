@@ -66,11 +66,4 @@ apps:
       - network-bind
       - network-status
       - audio-playback
-      - dbus
-    slots:
-      - dbus-amusiz
-
-slots:
-  dbus-amusiz:
-    interface: dbus
-    name: pm.mirko.Amusiz
+      
