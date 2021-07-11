@@ -66,4 +66,5 @@ apps:
       - network-bind
       - network-status
       - audio-playback
+      - dbus
       
